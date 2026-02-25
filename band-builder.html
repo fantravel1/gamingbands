@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Build Your Virtual Band — Interactive Band Creator Tool | GamingBands.com</title>
+<meta name="description" content="Create your own virtual band! Select a genre, game universe, NPC archetypes, stage aesthetic, and narrative arc. Get a complete band concept with lore, setlist, and shareable profile card.">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<link rel="canonical" href="https://gamingbands.com/band-builder.html">
+<meta name="theme-color" content="#0a0a1a">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Build Your Virtual Band — Interactive Band Creator Tool">
+<meta property="og:description" content="Create your own virtual band with our interactive tool. Choose genre, universe, archetypes, and more.">
+<meta property="og:url" content="https://gamingbands.com/band-builder.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="manifest" href="/manifest.json">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org","@type":"WebApplication",
+  "name":"Virtual Band Builder",
+  "description":"Interactive tool to create your own fictional video game band",
+  "url":"https://gamingbands.com/band-builder.html",
+  "applicationCategory":"Entertainment",
+  "operatingSystem":"Any",
+  "breadcrumb":{"@type":"BreadcrumbList","itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Home","item":"https://gamingbands.com/"},
+    {"@type":"ListItem","position":2,"name":"Band Builder","item":"https://gamingbands.com/band-builder.html"}
+  ]}
+}
+</script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'Inter',system-ui,sans-serif;background:#0a0a1a;color:#e0e0f0;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:#00f0ff;text-decoration:none;transition:color .2s}a:hover{color:#ff00ff}
+:root{--c-bg:#0a0a1a;--c-bg2:#111128;--c-bg3:#1a1a3e;--c-surface:#16163a;--c-border:#2a2a5a;--c-text:#e0e0f0;--c-text-dim:#8888aa;--c-text-bright:#fff;--c-cyan:#00f0ff;--c-magenta:#ff00ff;--c-purple:#8b5cf6;--c-green:#00ff88;--c-orange:#ff6b35;--c-pink:#ff3388;--c-yellow:#ffe600;--font-d:'Orbitron',monospace;--font-b:'Inter',sans-serif;--font-m:'JetBrains Mono',monospace;--r:12px;--r-lg:20px;--r-full:9999px;--max-w:1280px;--header-h:72px}
+::selection{background:#00f0ff;color:#0a0a1a}
+.bg-grid{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-2;opacity:.05;background-image:linear-gradient(var(--c-cyan) 1px,transparent 1px),linear-gradient(90deg,var(--c-cyan) 1px,transparent 1px);background-size:60px 60px}
+.site-header{position:fixed;top:0;left:0;width:100%;height:var(--header-h);background:rgba(10,10,26,.9);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--c-border);z-index:1000}
+.header-inner{max-width:var(--max-w);margin:0 auto;padding:0 24px;height:100%;display:flex;align-items:center;justify-content:space-between}
+.logo-text{font-family:var(--font-d);font-size:1.25rem;font-weight:800;letter-spacing:2px;background:linear-gradient(135deg,var(--c-cyan),var(--c-magenta));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.nav-desktop{display:flex;align-items:center;gap:8px}
+.nav-desktop a{padding:8px 16px;border-radius:var(--r);font-size:.875rem;font-weight:500;color:var(--c-text-dim);transition:all .2s}
+.nav-desktop a:hover,.nav-desktop a.active{color:var(--c-cyan);background:rgba(0,240,255,.08)}
+.nav-toggle{display:none;flex-direction:column;gap:5px;padding:8px;cursor:pointer;background:none;border:none}
+.nav-toggle span{width:24px;height:2px;background:var(--c-text);border-radius:2px;transition:all .3s}
+.nav-toggle.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.nav-toggle.open span:nth-child(2){opacity:0}
+.nav-toggle.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+.nav-mobile{position:fixed;top:var(--header-h);left:0;width:100%;height:calc(100vh - var(--header-h));background:rgba(10,10,26,.98);backdrop-filter:blur(20px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;transform:translateX(100%);transition:transform .4s;z-index:999}
+.nav-mobile.open{transform:translateX(0)}.nav-mobile a{font-size:1.25rem;padding:12px 32px;border-radius:var(--r);font-weight:500;color:var(--c-text)}
+@media(max-width:768px){.nav-desktop{display:none}.nav-toggle{display:flex}}
+
+.page-hero{padding:calc(var(--header-h)+60px) 24px 40px;text-align:center;background:var(--c-bg2)}
+.page-hero h1{font-family:var(--font-d);font-size:clamp(1.75rem,4vw,3rem);font-weight:900;margin-bottom:16px;background:linear-gradient(135deg,#fff,var(--c-cyan),var(--c-green));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.page-hero p{font-size:1.05rem;color:var(--c-text-dim);max-width:650px;margin:0 auto;line-height:1.7}
+.breadcrumb{max-width:var(--max-w);margin:0 auto;padding:16px 24px;font-size:.8rem;color:var(--c-text-dim)}
+.breadcrumb a{color:var(--c-text-dim)}.breadcrumb a:hover{color:var(--c-cyan)}
+
+/* Builder */
+.builder{max-width:900px;margin:0 auto;padding:24px}
+.step{background:var(--c-surface);border:1px solid var(--c-border);border-radius:var(--r-lg);padding:32px;margin-bottom:20px;transition:border-color .3s}
+.step.active{border-color:var(--c-cyan)}
+.step-header{display:flex;align-items:center;gap:14px;margin-bottom:20px}
+.step-num{width:36px;height:36px;border-radius:50%;background:var(--c-border);display:flex;align-items:center;justify-content:center;font-family:var(--font-d);font-size:.85rem;font-weight:700;color:var(--c-text-dim);transition:all .3s}
+.step.active .step-num{background:var(--c-cyan);color:var(--c-bg)}
+.step-header h2{font-family:var(--font-d);font-size:1rem;font-weight:700;color:var(--c-text-bright)}
+.options{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
+.opt{padding:12px 16px;border-radius:var(--r);border:1px solid var(--c-border);background:rgba(255,255,255,.02);cursor:pointer;text-align:center;font-size:.85rem;font-weight:500;color:var(--c-text-dim);transition:all .2s;user-select:none}
+.opt:hover{border-color:var(--c-cyan);color:var(--c-cyan)}
+.opt.selected{border-color:var(--c-cyan);background:rgba(0,240,255,.1);color:var(--c-cyan);box-shadow:0 0 15px rgba(0,240,255,.15)}
+.opt-wide{grid-template-columns:repeat(auto-fill,minmax(200px,1fr))}
+.band-name-input{width:100%;padding:14px 20px;border-radius:var(--r);border:1px solid var(--c-border);background:rgba(255,255,255,.03);color:var(--c-text);font-size:1.1rem;font-family:var(--font-d);font-weight:600;text-align:center;letter-spacing:1px}
+.band-name-input:focus{border-color:var(--c-cyan);outline:none;box-shadow:0 0 20px rgba(0,240,255,.15)}
+.band-name-input::placeholder{color:var(--c-text-dim);font-weight:400}
+.generate-btn{display:block;width:100%;max-width:400px;margin:32px auto 0;padding:16px 32px;border-radius:var(--r);background:linear-gradient(135deg,var(--c-cyan),var(--c-purple));color:var(--c-bg);font-family:var(--font-d);font-size:1.1rem;font-weight:700;letter-spacing:1px;cursor:pointer;border:none;transition:all .3s}
+.generate-btn:hover{transform:translateY(-2px);box-shadow:0 0 30px rgba(0,240,255,.3)}
+.generate-btn:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none}
+
+/* Result Card */
+.result{display:none;max-width:900px;margin:40px auto;padding:0 24px}
+.result.visible{display:block}
+.profile-card{background:var(--c-surface);border:1px solid var(--c-cyan);border-radius:var(--r-lg);overflow:hidden;box-shadow:0 0 40px rgba(0,240,255,.1)}
+.card-banner{height:120px;background:linear-gradient(135deg,var(--c-cyan),var(--c-purple),var(--c-magenta));position:relative;display:flex;align-items:center;justify-content:center}
+.card-banner .band-initial{font-family:var(--font-d);font-size:3rem;font-weight:900;color:rgba(0,0,0,.3)}
+.card-body{padding:32px}
+.card-body h2{font-family:var(--font-d);font-size:1.75rem;font-weight:900;color:var(--c-text-bright);margin-bottom:4px}
+.card-sub{font-size:.9rem;color:var(--c-cyan);margin-bottom:20px;font-weight:500}
+.card-section{margin-bottom:20px}
+.card-section h3{font-family:var(--font-d);font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--c-text-dim);margin-bottom:8px}
+.card-section p{font-size:.925rem;color:var(--c-text);line-height:1.7}
+.card-tags{display:flex;flex-wrap:wrap;gap:6px}
+.card-tags span{padding:4px 12px;border-radius:var(--r-full);font-size:.75rem;font-weight:500;border:1px solid rgba(0,240,255,.15);color:var(--c-cyan);background:rgba(0,240,255,.05)}
+.card-members{display:flex;flex-wrap:wrap;gap:8px}
+.card-members span{padding:6px 14px;border-radius:var(--r-full);font-size:.8rem;background:rgba(139,92,246,.08);color:var(--c-purple);border:1px solid rgba(139,92,246,.15)}
+.setlist-list{list-style:none}
+.setlist-list li{padding:6px 0;border-bottom:1px solid var(--c-border);font-size:.9rem;color:var(--c-text);display:flex;align-items:center;gap:8px}
+.setlist-list li::before{content:'♪';color:var(--c-magenta)}
+.setlist-list li:last-child{border-bottom:none}
+.card-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px;border-top:1px solid var(--c-border);padding-top:20px}
+.card-stat{text-align:center}
+.card-stat .val{font-family:var(--font-d);font-size:1.25rem;font-weight:800;color:var(--c-cyan)}
+.card-stat .lbl{font-size:.7rem;color:var(--c-text-dim);text-transform:uppercase;letter-spacing:1px}
+.card-actions{display:flex;gap:12px;margin-top:24px;flex-wrap:wrap}
+.card-actions button{padding:12px 24px;border-radius:var(--r);font-weight:600;font-size:.9rem;cursor:pointer;transition:all .2s;border:none}
+.btn-share{background:linear-gradient(135deg,var(--c-cyan),var(--c-purple));color:var(--c-bg)}
+.btn-share:hover{transform:translateY(-2px);box-shadow:0 0 20px rgba(0,240,255,.2)}
+.btn-new{background:transparent;border:1px solid var(--c-border)!important;color:var(--c-text)}
+.btn-new:hover{border-color:var(--c-cyan)!important;color:var(--c-cyan)}
+.share-toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--c-green);color:var(--c-bg);padding:12px 24px;border-radius:var(--r);font-weight:600;font-size:.9rem;transition:transform .3s;z-index:2000}
+.share-toast.show{transform:translateX(-50%) translateY(0)}
+
+.site-footer{background:var(--c-bg2);border-top:1px solid var(--c-border);padding:40px 24px;text-align:center;font-size:.8rem;color:var(--c-text-dim);margin-top:60px}
+</style>
+</head>
+<body>
+<div class="bg-grid" aria-hidden="true"></div>
+<header class="site-header"><div class="header-inner">
+<a href="/" class="logo"><span class="logo-text">GAMINGBANDS</span></a>
+<nav class="nav-desktop"><a href="/">Home</a><a href="/bands.html">Bands</a><a href="/concerts.html">Concerts</a><a href="/charts.html">Charts</a><a href="/band-builder.html" class="active">Band Builder</a></nav>
+<button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+</div></header>
+<nav class="nav-mobile"><a href="/">Home</a><a href="/bands.html">Bands</a><a href="/concerts.html">Concerts</a><a href="/charts.html">Charts</a><a href="/band-builder.html">Band Builder</a></nav>
+
+<div class="page-hero">
+<h1>Build Your Virtual Band</h1>
+<p>Design your own fictional video game band. Choose your genre, universe, members, aesthetic, and story — then generate a complete band profile you can share.</p>
+</div>
+<div class="breadcrumb"><a href="/">Home</a> / <strong>Band Builder</strong></div>
+
+<div class="builder" id="builder">
+<!-- Step 1: Band Name -->
+<div class="step active">
+<div class="step-header"><div class="step-num">1</div><h2>Name Your Band</h2></div>
+<input type="text" class="band-name-input" id="bandName" placeholder="Enter your band name..." maxlength="40" aria-label="Band name">
+</div>
+
+<!-- Step 2: Genre -->
+<div class="step">
+<div class="step-header"><div class="step-num">2</div><h2>Choose Your Genre</h2></div>
+<div class="options" id="genreOptions">
+<div class="opt" data-value="Chromatic Rock">Chromatic Rock</div>
+<div class="opt" data-value="Heavy Metal">Heavy Metal</div>
+<div class="opt" data-value="Synth-Pop">Synth-Pop</div>
+<div class="opt" data-value="J-Pop / Idol">J-Pop / Idol</div>
+<div class="opt" data-value="Hip-Hop">Hip-Hop</div>
+<div class="opt" data-value="Medieval Folk">Medieval Folk</div>
+<div class="opt" data-value="Space Ambient">Space Ambient</div>
+<div class="opt" data-value="Electronic / EDM">Electronic / EDM</div>
+<div class="opt" data-value="Punk">Punk</div>
+<div class="opt" data-value="Classical / Orchestral">Classical</div>
+<div class="opt" data-value="Lo-Fi Chill">Lo-Fi Chill</div>
+<div class="opt" data-value="Dark Wave">Dark Wave</div>
+</div>
+</div>
+
+<!-- Step 3: Game Universe -->
+<div class="step">
+<div class="step-header"><div class="step-num">3</div><h2>Pick Your Game Universe</h2></div>
+<div class="options opt-wide" id="universeOptions">
+<div class="opt" data-value="Cyberpunk Dystopia">Cyberpunk Dystopia</div>
+<div class="opt" data-value="Fantasy Kingdom">Fantasy Kingdom</div>
+<div class="opt" data-value="Post-Apocalyptic Wasteland">Post-Apocalyptic Wasteland</div>
+<div class="opt" data-value="Colorful Cartoon World">Colorful Cartoon World</div>
+<div class="opt" data-value="Space Opera">Space Opera</div>
+<div class="opt" data-value="Modern City Open World">Modern City Open World</div>
+<div class="opt" data-value="Underwater Civilization">Underwater Civilization</div>
+<div class="opt" data-value="Pixel Retro Realm">Pixel Retro Realm</div>
+</div>
+</div>
+
+<!-- Step 4: Stage Aesthetic -->
+<div class="step">
+<div class="step-header"><div class="step-num">4</div><h2>Stage Aesthetic</h2></div>
+<div class="options opt-wide" id="aestheticOptions">
+<div class="opt" data-value="Neon Hologram Arena">Neon Hologram Arena</div>
+<div class="opt" data-value="Underground Club">Underground Club</div>
+<div class="opt" data-value="Floating Sky Platform">Floating Sky Platform</div>
+<div class="opt" data-value="Ancient Ruins Temple">Ancient Ruins Temple</div>
+<div class="opt" data-value="Volcano Crater Stage">Volcano Crater Stage</div>
+<div class="opt" data-value="Crystal Cavern">Crystal Cavern</div>
+<div class="opt" data-value="Rooftop Skyline">Rooftop Skyline</div>
+<div class="opt" data-value="Interdimensional Void">Interdimensional Void</div>
+</div>
+</div>
+
+<!-- Step 5: Narrative Arc -->
+<div class="step">
+<div class="step-header"><div class="step-num">5</div><h2>Narrative Arc</h2></div>
+<div class="options opt-wide" id="narrativeOptions">
+<div class="opt" data-value="Rise from the Underground">Rise from the Underground</div>
+<div class="opt" data-value="Rebel Against the System">Rebel Against the System</div>
+<div class="opt" data-value="Reuniting After Tragedy">Reuniting After Tragedy</div>
+<div class="opt" data-value="Ancient Prophecy Fulfilled">Ancient Prophecy Fulfilled</div>
+<div class="opt" data-value="Rival Band Showdown">Rival Band Showdown</div>
+<div class="opt" data-value="Last Concert Before Apocalypse">Last Concert Before Apocalypse</div>
+</div>
+</div>
+
+<button class="generate-btn" id="generateBtn" disabled>Generate Your Band</button>
+</div>
+
+<!-- RESULT -->
+<div class="result" id="result">
+<div class="profile-card" id="profileCard">
+<div class="card-banner"><span class="band-initial" id="cardInitial"></span></div>
+<div class="card-body">
+<h2 id="cardName"></h2>
+<div class="card-sub" id="cardSub"></div>
+<div class="card-section"><h3>Lore</h3><p id="cardLore"></p></div>
+<div class="card-section"><h3>Tags</h3><div class="card-tags" id="cardTags"></div></div>
+<div class="card-section"><h3>Members</h3><div class="card-members" id="cardMembers"></div></div>
+<div class="card-section"><h3>Starter Setlist</h3><ul class="setlist-list" id="cardSetlist"></ul></div>
+<div class="card-stats">
+<div class="card-stat"><div class="val" id="statImpact">—</div><div class="lbl">Impact</div></div>
+<div class="card-stat"><div class="val" id="statTracks">—</div><div class="lbl">Tracks</div></div>
+<div class="card-stat"><div class="val" id="statFans">—</div><div class="lbl">Fans</div></div>
+</div>
+<div class="card-actions">
+<button class="btn-share" id="shareBtn">Copy Share Link</button>
+<button class="btn-new" id="newBtn">Build Another Band</button>
+</div>
+</div>
+</div>
+</div>
+
+<div class="share-toast" id="toast">Link copied to clipboard!</div>
+
+<footer class="site-footer">&copy; 2026 GamingBands.com &mdash; The Global Authority on Music Inside Video Games</footer>
+
+<script>
+(function(){
+'use strict';
+// Nav
+var toggle=document.querySelector('.nav-toggle'),mob=document.querySelector('.nav-mobile');
+if(toggle)toggle.addEventListener('click',function(){var o=mob.classList.toggle('open');toggle.classList.toggle('open');toggle.setAttribute('aria-expanded',o);document.body.style.overflow=o?'hidden':'';});
+if(mob)mob.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){mob.classList.remove('open');toggle.classList.remove('open');document.body.style.overflow='';});});
+
+// State
+var state={name:'',genre:'',universe:'',aesthetic:'',narrative:''};
+var keys=['genre','universe','aesthetic','narrative'];
+var idMap={genre:'genreOptions',universe:'universeOptions',aesthetic:'aestheticOptions',narrative:'narrativeOptions'};
+
+// Option selection
+keys.forEach(function(k){
+var container=document.getElementById(idMap[k]);
+container.querySelectorAll('.opt').forEach(function(opt){
+opt.addEventListener('click',function(){
+container.querySelectorAll('.opt').forEach(function(o){o.classList.remove('selected')});
+opt.classList.add('selected');
+state[k]=opt.getAttribute('data-value');
+checkReady();
+});
+});
+});
+
+// Name
+var nameInput=document.getElementById('bandName');
+nameInput.addEventListener('input',function(){state.name=this.value.trim();checkReady()});
+
+var genBtn=document.getElementById('generateBtn');
+function checkReady(){
+var ready=state.name&&state.genre&&state.universe&&state.aesthetic&&state.narrative;
+genBtn.disabled=!ready;
+}
+
+// Generate
+genBtn.addEventListener('click',function(){
+if(genBtn.disabled)return;
+generateBand();
+});
+
+function generateBand(){
+var g=state.genre,u=state.universe,a=state.aesthetic,n=state.narrative,nm=state.name;
+
+// Lore generation
+var loreTemplates=[
+'Born in the {universe}, {name} emerged from the shadows with a sound that fused {genre} with raw rebellion. Their story is one of {narrative} — every chord they strike echoes through the digital realm, inspiring players and NPCs alike to question the world around them.',
+'In the heart of the {universe}, a group of unlikely musicians formed {name}. Their {genre} anthems became the soundtrack to an era of upheaval. Their journey of {narrative} transformed them from unknown buskers into legendary icons whose music shakes the foundations of reality.',
+'{name} was forged in the fires of the {universe}, where music is power and silence means submission. Playing {genre} with an intensity that borders on supernatural, their tale of {narrative} has become the stuff of digital legend, whispered in taverns and broadcast across star systems.',
+'When the {universe} needed heroes, {name} answered with amplifiers. Their unique blend of {genre} resonated with the oppressed and the dreamers. Through {narrative}, they proved that the mightiest weapon is a killer riff and an unbreakable spirit.'
+];
+var lore=loreTemplates[Math.floor(Math.random()*loreTemplates.length)]
+.replace(/{name}/g,nm).replace(/{genre}/g,g.toLowerCase()).replace(/{universe}/g,u.toLowerCase()).replace(/{narrative}/g,n.toLowerCase());
+
+// Members
+var memberPools={
+'Chromatic Rock':['Axel Voltage (Lead Guitar)','Nyx Chrome (Vocals)','Riff Binary (Bass)','Crash Loop (Drums)','Echo Fade (Synth)'],
+'Heavy Metal':['Ironjaw (Vocals)','Skarl the Shredder (Guitar)','Bassquake (Bass)','Doomhammer (Drums)','Wail (Rhythm Guitar)'],
+'Synth-Pop':['Pixel Dream (Vocals/Synth)','Glitch (Keys)','Neon Wave (Bass Synth)','Beat.exe (Drum Machine)','Halo FX (Production)'],
+'J-Pop / Idol':['Sakura Star (Center)','Luna Beam (Vocals)','Mochi Beat (Dance Lead)','Hime Flash (Visual)','Yuki Note (Keyboard)'],
+'Hip-Hop':['MC Polygon (Rapper)','DJ Render (Turntables)','Lo-Key (Producer)','Pixel Flow (Hype)','Sub Bass (Engineer)'],
+'Medieval Folk':['Lute the Wanderer (Lute)','Whisperwind (Flute)','Oaken Drum (Percussion)','Silverstring (Harp)','Bardic Flame (Vocals)'],
+'Space Ambient':['Void Drift (Synth Pads)','Nebula Hum (Theremin)','Starwhisper (Vocals)','Cosmic Pulse (Bass Drone)','Orbit Echo (FX)'],
+'Electronic / EDM':['DROP (DJ)','Bassline (Synth)','Strobe (Visuals/FX)','Phantom Kick (Drums)','Filter (Vocals)'],
+'Punk':['Spike Crash (Vocals/Guitar)','No Signal (Bass)','Smash Static (Drums)','Riot Pixel (Rhythm)','Vandal (Hype)'],
+'Classical / Orchestral':['Maestro X (Conductor)','Aria (First Violin)','Resonance (Cello)','Cadence (Piano)','Crescendo (Choir Lead)'],
+'Lo-Fi Chill':['Sleepy Tape (Producer)','Rain Loop (Samples)','Warm Static (Guitar)','Analog Drift (Keys)','Cafe Haze (Vocals)'],
+'Dark Wave':['Shadow Veil (Vocals)','Cold Circuit (Synth)','Obsidian Bass (Bass)','Grave Beat (Drums)','Phantom Choir (Backing)']
+};
+var members=memberPools[g]||['Member 1','Member 2','Member 3','Member 4'];
+
+// Setlist
+var setlistPools={
+'Chromatic Rock':['Neon Uprising','Burn the Code','Chrome Hearts','Voltage Anthem','Digital Scars','Rebel Frequency'],
+'Heavy Metal':['Forge of Wrath','Skull Throne','Iron Tempest','Doomrider','Bloodfire Requiem','Shatter the Chains'],
+'Synth-Pop':['Electric Dreams','Pixel Perfect','Neon Nights','Heartbeat.wav','Crystal Cascade','Infinite Loop'],
+'J-Pop / Idol':['Starlight Festival','Kawaii Thunder','Dream Constellation','Rainbow Overdrive','Sparkling Revolution','Moon Prism Beat'],
+'Hip-Hop':['Polygon Flow','Render the Block','Low Poly Hustle','8-Bit Grind','Respawn Cypher','Stack Overflow'],
+'Medieval Folk':['The Ballad of Broken Swords','Tavern at Dawn','Wanderer\'s Lament','Crown of Thorns','Moonrise March','The Final Quest'],
+'Space Ambient':['Void Lullaby','Nebula Drift','Stellar Requiem','Cosmic Silence','Event Horizon','Pale Blue Dot'],
+'Electronic / EDM':['Bass Drop Apocalypse','Strobe Light City','Filter Sweep','Phantom Frequency','Underground Surge','Peak Time'],
+'Punk':['System Crash','No Future Found','Static Riot','Brick by Brick','Burn the Manual','Raw Input'],
+'Classical / Orchestral':['Overture of the Fallen','Elegy for Digital Souls','Symphony No. 404','Crescendo of Light','The Ruins Waltz','Finale: Rebirth'],
+'Lo-Fi Chill':['Rainy Window','Warm Memories','Coffee and Pixels','Sunset Drive','Late Night Study','Slow Morning'],
+'Dark Wave':['Shadow Frequency','Cold Embrace','Obsidian Mirror','Hollow Cathedral','Veil of Night','Void Hymn']
+};
+var setlist=setlistPools[g]||['Track 1','Track 2','Track 3','Track 4','Track 5'];
+
+var impact=Math.floor(Math.random()*20)+80;
+var tracks=setlist.length;
+var fans=(Math.floor(Math.random()*900)+100)+'K';
+
+// Render
+document.getElementById('cardInitial').textContent=nm.substring(0,2).toUpperCase();
+document.getElementById('cardName').textContent=nm;
+document.getElementById('cardSub').textContent=g+' \u2022 '+u+' \u2022 '+a;
+document.getElementById('cardLore').textContent=lore;
+document.getElementById('cardTags').innerHTML=[g,u,a,n].map(function(t){return '<span>'+t+'</span>'}).join('');
+document.getElementById('cardMembers').innerHTML=members.map(function(m){return '<span>'+m+'</span>'}).join('');
+document.getElementById('cardSetlist').innerHTML=setlist.map(function(s){return '<li>'+s+'</li>'}).join('');
+document.getElementById('statImpact').textContent=impact+'/100';
+document.getElementById('statTracks').textContent=tracks;
+document.getElementById('statFans').textContent=fans;
+
+document.getElementById('result').classList.add('visible');
+document.getElementById('result').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+// Share
+document.getElementById('shareBtn').addEventListener('click',function(){
+var params=new URLSearchParams({n:state.name,g:state.genre,u:state.universe,a:state.aesthetic,r:state.narrative});
+var url=window.location.origin+window.location.pathname+'?'+params.toString();
+if(navigator.clipboard){
+navigator.clipboard.writeText(url).then(function(){showToast()});
+}else{
+var ta=document.createElement('textarea');ta.value=url;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);showToast();
+}
+});
+
+function showToast(){
+var toast=document.getElementById('toast');
+toast.classList.add('show');
+setTimeout(function(){toast.classList.remove('show')},2500);
+}
+
+// New Band
+document.getElementById('newBtn').addEventListener('click',function(){
+document.getElementById('result').classList.remove('visible');
+state={name:'',genre:'',universe:'',aesthetic:'',narrative:''};
+nameInput.value='';
+document.querySelectorAll('.opt.selected').forEach(function(o){o.classList.remove('selected')});
+genBtn.disabled=true;
+document.getElementById('builder').scrollIntoView({behavior:'smooth'});
+});
+
+// Load from URL params
+var params=new URLSearchParams(window.location.search);
+if(params.get('n')){
+nameInput.value=params.get('n');state.name=params.get('n');
+['g','u','a','r'].forEach(function(p,i){
+var val=params.get(p);
+if(val){
+var k=keys[i];if(p==='r')k='narrative';if(p==='g')k='genre';if(p==='u')k='universe';if(p==='a')k='aesthetic';
+state[k]=val;
+var container=document.getElementById(idMap[k]);
+container.querySelectorAll('.opt').forEach(function(opt){if(opt.getAttribute('data-value')===val)opt.classList.add('selected')});
+}
+});
+checkReady();
+if(!genBtn.disabled)generateBand();
+}
+})();
+</script>
+</body>
+</html>
